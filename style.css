@@ -1,0 +1,83 @@
+#userTable{
+    width: 100%;
+    border-collapse: collapse;
+}
+#userTable thead{
+    background-color: black;
+    color: #fff;
+}
+.select-check{
+    width: 5%;
+    text-align: left;
+}
+.actionBtn{
+    float: right;
+    margin-bottom: 10px;
+}
+.userform label,.userform input{
+width: 100%;
+}
+#myModel{
+    display: none;
+}
+
+.model {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  /* Model Content */
+  .model-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+  }
+  
+  /* The Close Button */
+  .close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .closeBtnDiv{
+    text-align: center;
+    margin-top: 15px;
+  }
+  .actionBtn #deleteBtn{
+    float: left;
+    position: absolute;
+    left: 10px;
+  }
+  ol{
+    text-align: center;
+  }
+  ol li{
+    list-style-type: none;
+    width: 40px;
+    display: inline-block;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  .disabled {
+    pointer-events:none; 
+    opacity:0.6;     
+  }
