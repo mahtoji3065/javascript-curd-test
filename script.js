@@ -39,6 +39,8 @@ fetch('https://jsonplaceholder.typicode.com/posts')
             var tbody = loadTable();
             table.appendChild(tbody);
             document.body.appendChild(table);
+            const divs = document.querySelectorAll('#userTable tbody input');
+            divs.forEach(el => el.addEventListener('click', checkForEdit));
             loadPagenation();
         }
     });
@@ -71,9 +73,6 @@ function loadTable() {
         tr.appendChild(td);
         tbody.appendChild(tr);
     }
-
-    const divs = document.querySelectorAll('#userTable tbody input');
-    divs.forEach(el => el.addEventListener('click', checkForEdit));
 
     return tbody;
 }
@@ -110,14 +109,14 @@ function loadPagenation() {
             } else {
                 document.getElementById("pre").classList.remove("disabled");
                 const totalNoOfPages = (userListData.length % perPage) ? parseInt(userListData.length / perPage) + 1 : userListData.length / perPage;
-                if(totalNoOfPages === page){
+                if (totalNoOfPages === page) {
                     document.getElementById("next").classList.add("disabled");
-                }else{
-                    if ( document.getElementById("next").classList.contains('disabled') ) {
+                } else {
+                    if (document.getElementById("next").classList.contains('disabled')) {
                         document.getElementById("next").classList.remove("disabled");
                     }
                 }
-                
+
             }
             const tbody = document.querySelector("#userTable tbody");
             tbody.remove();
@@ -126,6 +125,11 @@ function loadPagenation() {
             var newtbody = loadTable();
 
             table.appendChild(newtbody);
+            const divs = document.querySelectorAll('#userTable tbody input');
+            divs.forEach(el => el.addEventListener('click', checkForEdit));
+
+            document.getElementById('editBtn').disabled = true;
+            document.getElementById('deleteBtn').disabled = true;
         }
     });
 }
@@ -196,7 +200,17 @@ function saveUserForm() {
     })
         .then((response) => response.json())
         .then((json) => {
-            window.location.href = redirect;
+            if (parseInt(id)) {
+                var selectedUser = document.querySelector('input[name=user-checkbox]:checked').closest('tr').querySelectorAll('td');
+                selectedUser[1].innerHTML = json.userId;
+                selectedUser[2].innerHTML = json.title;
+                selectedUser[3].innerHTML = json.body;
+                var model = document.getElementById("myModel");
+                model.style.display = "none";
+            } else {
+                window.location.href = redirect;
+            }
+
         });
 
     return false;
@@ -224,7 +238,6 @@ function checkForEdit() {
 
 
 function deleteUser() {
-    let redirect = window.location.href;
     let count = 0;
     const divs = document.querySelectorAll('#userTable tbody input');
     divs.forEach(el => {
@@ -234,10 +247,10 @@ function deleteUser() {
             fetch('https://jsonplaceholder.typicode.com/posts/' + selectedUserID, {
                 method: 'DELETE',
             })
+            el.parentNode.parentNode.remove();
+            document.getElementById('editBtn').disabled = true;
+            document.getElementById('deleteBtn').disabled = true;
         }
     });
 
-    if (count) {
-        window.location.href = redirect;
-    }
 }
